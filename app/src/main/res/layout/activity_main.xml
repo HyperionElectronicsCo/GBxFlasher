@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:gravity="center_horizontal">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="32dp"
+			android:text="Mode:"
+			android:id="@+id/activitymainTextView1"
+			android:textStyle="bold"
+			android:gravity="center"
+			android:layout_marginLeft="10dp"/>
+
+		<RadioGroup
+			android:orientation="horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checkedButton="@+id/activitymainRadioButton1"
+			android:layout_toRightOf="@id/activitymainTextView1"
+			android:gravity="center">
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@id/activitymainTextView1"
+				android:id="@+id/activitymainRadioButton1"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="32dp"
+				android:text="GB"
+				android:layout_toRightOf="@id/activitymainRadioButton1"
+				android:id="@+id/activitymainTextView2"
+				android:gravity="center"/>
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@id/activitymainTextView2"
+				android:id="@+id/activitymainRadioButton2"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="32dp"
+				android:text="GBA"
+				android:layout_toRightOf="@id/activitymainRadioButton2"
+				android:gravity="center"
+				android:id="@+id/activitymainTextView3"/>
+
+			<View
+				android:background="?android:attr/dividerHorizontal"
+				android:layout_width="1dp"
+				android:layout_height="32dp"
+				android:layout_toRightOf="@id/activitymainTextView3"
+				android:id="@+id/activitymainView1"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="32dp"
+				android:text="Firmware:"
+				android:layout_toRightOf="@id/activitymainView1"
+				android:gravity="center"
+				android:textStyle="bold"
+				android:id="@+id/activitymainTextView4"/>
+
+			<EditText
+				android:layout_width="wrap_content"
+				android:ems="10"
+				android:layout_height="32dp"
+				android:background="@android:color/transparent"
+				android:layout_toRightOf="@id/activitymainTextView4"
+				android:gravity="center"
+				android:hint="FW info"/>
+
+		</RadioGroup>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center">
+
+		<RelativeLayout
+			android:layout_width="38dp"
+			android:layout_height="38dp"
+			android:id="@+id/activitymainImageView1"
+			android:layout_marginTop="5dp"
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="20dp"
+				android:layout_height="20dp"
+				android:id="@+id/Tv1"
+				android:background="@drawable/ic_offline"/>
+
+		</RelativeLayout>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Remove"
+			android:layout_toRightOf="@id/activitymainImageView1"
+			android:id="@+id/button_connect"
+			android:onClick="onConnectClick"/>
+
+		<Button
+			android:layout_width="126dp"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:text="Read Cart Inf"
+			android:layout_toRightOf="@id/button_connect"
+			android:id="@+id/activitymainButton3"/>
+
+		<Button
+			android:layout_width="126dp"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:text="Read ROM"
+			android:layout_below="@id/button_connect"
+			android:id="@+id/activitymainButton2"/>
+
+		<Button
+			android:layout_width="126dp"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:text="Write ROM"
+			android:layout_toRightOf="@id/activitymainButton2"
+			android:layout_below="@id/activitymainButton3"
+			android:id="@+id/activitymainButton4"/>
+
+		<Button
+			android:layout_width="126dp"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:text="Backup Save"
+			android:layout_below="@id/activitymainButton2"
+			android:id="@+id/activitymainButton5"/>
+
+		<Button
+			android:layout_width="126dp"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:text="Restore Save"
+			android:layout_toRightOf="@id/activitymainButton5"
+			android:layout_below="@id/activitymainButton4"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="175dp"
+		android:id="@+id/amrl1"
+		android:background="@drawable/roundedcorners"
+		android:layout_margin="5dp">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:text="null"
+			android:id="@+id/text_status"
+			android:layout_margin="5dp"/>
+
+	</RelativeLayout>
+
+	<ProgressBar
+		android:id="@+id/progressBar"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:indeterminate="false"
+		android:max="100"
+		android:minHeight="50dp"
+		android:minWidth="200dp"
+		android:progress="1"/>
+
+</LinearLayout>
+
