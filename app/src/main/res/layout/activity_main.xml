@@ -122,7 +122,7 @@
 			android:layout_height="wrap_content"
 			android:text="Read Cart Inf"
 			android:layout_toRightOf="@id/button_connect"
-			android:id="@+id/activitymainButton3"/>
+			android:id="@+id/read_Info"/>
 
 		<Button
 			android:layout_width="126dp"
@@ -130,32 +130,33 @@
 			android:layout_height="wrap_content"
 			android:text="Read ROM"
 			android:layout_below="@id/button_connect"
-			android:id="@+id/activitymainButton2"/>
+			android:id="@+id/read_Rom"/>
 
 		<Button
 			android:layout_width="126dp"
 			style="?android:attr/buttonStyleSmall"
 			android:layout_height="wrap_content"
 			android:text="Write ROM"
-			android:layout_toRightOf="@id/activitymainButton2"
-			android:layout_below="@id/activitymainButton3"
-			android:id="@+id/activitymainButton4"/>
+			android:layout_toRightOf="@id/read_Rom"
+			android:layout_below="@id/read_Info"
+			android:id="@+id/write_Rom"/>
 
 		<Button
 			android:layout_width="126dp"
 			style="?android:attr/buttonStyleSmall"
 			android:layout_height="wrap_content"
 			android:text="Backup Save"
-			android:layout_below="@id/activitymainButton2"
-			android:id="@+id/activitymainButton5"/>
+			android:layout_below="@id/read_Rom"
+			android:id="@+id/backup_Save"/>
 
 		<Button
 			android:layout_width="126dp"
 			style="?android:attr/buttonStyleSmall"
 			android:layout_height="wrap_content"
 			android:text="Restore Save"
-			android:layout_toRightOf="@id/activitymainButton5"
-			android:layout_below="@id/activitymainButton4"/>
+			android:layout_toRightOf="@id/backup_Save"
+			android:layout_below="@id/write_Rom"
+			android:id="@+id/restore_Save"/>
 
 	</RelativeLayout>
 
