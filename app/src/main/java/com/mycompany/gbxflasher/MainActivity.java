@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 	private static final int REQ_INDEX = 0x00;
 	private static final int LENGTH = 64;
 
+	private BroadcastReceiver detachReceiver;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
 		mDeviceText = (TextView) findViewById(R.id.text_status);
 		mConnectButton = (Button) findViewById(R.id.button_connect);
 		mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+		
+		detachReceiver = new BroadcastReceiver() {
+			public void onReceive(Context context, Intent intent) {
+				if(intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED))
+					stopSelf();
+			}
+
+			private void stopSelf() {
+				mDeviceText.append("\n" + "Disconnected");
+				Tv1.setBackgroundResource(R.drawable.ic_offline);
+			}
+		};
+
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+		registerReceiver(detachReceiver, filter);
+	
 	}
 
 	@Override
