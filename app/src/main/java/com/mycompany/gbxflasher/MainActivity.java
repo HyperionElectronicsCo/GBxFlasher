@@ -22,10 +22,16 @@ public class MainActivity extends AppCompatActivity {
 	private static final String TAG = "UsbHost";
 	TextView Tv1;
 	TextView mDeviceText;
-	Button mConnectButton;
 	UsbManager mUsbManager;
 	UsbDevice mDevice;
 	PendingIntent mPermissionIntent;
+	
+	Button mConnect;
+	Button mReadInfo;
+	Button mReadRom;
+	Button mWriteRom;
+	Button mBackupSave;
+	Button mRestoreSave;
 	
 	private static final int REQUEST_TYPE = 0x80;
 	private static final int REQUEST = 0x06;
@@ -41,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		Tv1 = (TextView) findViewById(R.id.Tv1);
 		mDeviceText = (TextView) findViewById(R.id.text_status);
-		mConnectButton = (Button) findViewById(R.id.button_connect);
+		
+		mConnect = (Button) findViewById(R.id.button_connect);
+		mReadInfo = (Button) findViewById(R.id.read_Info);
+		mReadRom = (Button) findViewById(R.id.read_Rom);
+		mWriteRom = (Button) findViewById(R.id.write_Rom);
+		mBackupSave = (Button) findViewById(R.id.backup_Save);
+		mRestoreSave = (Button) findViewById(R.id.restore_Save);
+		
 		mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
 		
 		detachReceiver = new BroadcastReceiver() {
@@ -124,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
 		if (connectedDevices.isEmpty()) {
 			mDevice = null;
 			mDeviceText.setText("No Devices Currently Connected");
-			mConnectButton.setEnabled(false);
+			mConnect.setEnabled(false);
 		} else {
 			for (UsbDevice device : connectedDevices.values()) {
 				mDevice = device;
 			}
 			mDeviceText.setText("USB Device connected");
-			mConnectButton.setEnabled(true);
+			mConnect.setEnabled(true);
 			Tv1.setBackgroundResource(R.drawable.ic_online);
 		}
 	}}
