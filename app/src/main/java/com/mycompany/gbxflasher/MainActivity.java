@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.HashMap;
 import android.widget.ImageView;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -57,6 +58,35 @@ public class MainActivity extends AppCompatActivity {
 		
 		mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
 		
+		
+		mReadInfo.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+				}
+			});
+		mReadRom.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+				}
+			});
+		mWriteRom.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+				}
+			});
+		mBackupSave.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+				}
+			});
+		mRestoreSave.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+				}
+			});
+			
+			
+			
 		detachReceiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
 				if(intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED))
@@ -75,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 	
 	}
 
+	
+	
 	@Override
 	protected void onRestart() {
 		super.onRestart();
