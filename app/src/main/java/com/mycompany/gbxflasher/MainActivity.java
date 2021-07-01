@@ -1,22 +1,33 @@
 package com.mycompany.gbxflasher;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import java.util.ArrayList;
 import java.util.HashMap;
-import android.widget.ImageView;
-import android.view.View.OnClickListener;
+import java.util.List;
+import java.io.InputStream;
+import java.io.IOException;
+import android.os.Environment;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -40,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
 	private static final int REQ_INDEX = 0x00;
 	private static final int LENGTH = 64;
 
+	private String path;
+	
+	String[] permissions = new String[]{
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+	};
+	
 	private BroadcastReceiver detachReceiver;
 
 	@Override
@@ -59,9 +77,14 @@ public class MainActivity extends AppCompatActivity {
 		mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
 		
 		
+		path = ("/storage/3AD8-565D/");
+
+    
+		
 		mReadInfo.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					read();
 				}
 			});
 		mReadRom.setOnClickListener(new OnClickListener() {
@@ -104,8 +127,55 @@ public class MainActivity extends AppCompatActivity {
 		registerReceiver(detachReceiver, filter);
 	
 	}
-
+	private boolean checkPermissions() {
+		int result;
+		List<String> listPermissionsNeeded = new ArrayList<>();
+		for (String p : permissions) {
+			result = ContextCompat.checkSelfPermission(this, p);
+			if (result != PackageManager.PERMISSION_GRANTED) {
+				listPermissionsNeeded.add(p);
+			}
+		}
+		if (!listPermissionsNeeded.isEmpty()) {
+			ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		if (requestCode == 100) {
+			if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				// do something
+				
+				
+			}
+			return;
+		}
+	}
 	
+	private void read() {
+		//Read FW Info T-DRIVER.DMP
+		StringBuilder text = new StringBuilder();
+		try {
+			
+			File file = new File(path,"T-DRIVER.DMP");
+
+			BufferedReader br = new BufferedReader(new FileReader(file));  
+			String line;   
+			while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+			}
+			br.close() ;
+		}catch (IOException e) {
+			e.printStackTrace();           
+		}
+
+		
+		mDeviceText.setText(text.toString()); ////Set the text to text view.
+		}
 	
 	@Override
 	protected void onRestart() {
@@ -137,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 
-	private static final String ACTION_USB_PERMISSION = "com.android.recipes.USB_PERMISSION";
+	private static final String ACTION_USB_PERMISSION = "com.mycompany.gbxflasher.USB_PERMISSION";
 	private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
@@ -177,5 +247,7 @@ public class MainActivity extends AppCompatActivity {
 			mDeviceText.setText("USB Device connected");
 			mConnect.setEnabled(true);
 			Tv1.setBackgroundResource(R.drawable.ic_online);
+			checkPermissions();
 		}
-	}}
+	}
+}

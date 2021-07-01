@@ -22,5 +22,6 @@ android {
 dependencies {
     compile 'androidx.appcompat:appcompat:1.0.0'
 	compile 'com.google.android.material:material:1.0.0'
+	
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

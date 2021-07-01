@@ -82,7 +82,8 @@
 				android:background="@android:color/transparent"
 				android:layout_toRightOf="@id/activitymainTextView4"
 				android:gravity="center"
-				android:hint="FW info"/>
+				android:hint="FW info"
+				android:id="@+id/mFw"/>
 
 		</RadioGroup>
 
