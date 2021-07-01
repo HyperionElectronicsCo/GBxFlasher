@@ -19,18 +19,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.io.InputStream;
-import java.io.IOException;
-import android.os.Environment;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class MainActivity extends AppCompatActivity {
-	
+
 	private static final String TAG = "UsbHost";
 	TextView mFw;
 	TextView Tv1;
@@ -38,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
 	UsbManager mUsbManager;
 	UsbDevice mDevice;
 	PendingIntent mPermissionIntent;
-	
+
 	Button mConnect;
 	Button mReadInfo;
 	Button mReadRom;
 	Button mWriteRom;
 	Button mBackupSave;
 	Button mRestoreSave;
-	
+
 	private static final int REQUEST_TYPE = 0x80;
 	private static final int REQUEST = 0x06;
 	private static final int REQ_VALUE = 0x200;
@@ -53,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
 	private static final int LENGTH = 64;
 
 	private String path;
-	
+
 	String[] permissions = new String[]{
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
 	};
-	
+
 	private BroadcastReceiver detachReceiver;
 
 	@Override
@@ -68,25 +66,25 @@ public class MainActivity extends AppCompatActivity {
 		Tv1 = (TextView) findViewById(R.id.Tv1);
 		mDeviceText = (TextView) findViewById(R.id.text_status);
 		mFw = (TextView) findViewById(R.id.mFw);
-		
+
 		mConnect = (Button) findViewById(R.id.button_connect);
 		mReadInfo = (Button) findViewById(R.id.read_Info);
 		mReadRom = (Button) findViewById(R.id.read_Rom);
 		mWriteRom = (Button) findViewById(R.id.write_Rom);
 		mBackupSave = (Button) findViewById(R.id.backup_Save);
 		mRestoreSave = (Button) findViewById(R.id.restore_Save);
-		
+
 		mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-		
-		
+
+
 		path = ("/storage/3AD8-565D/");
 
-    
-		
+
+
 		mReadInfo.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					read();
+					
 				}
 			});
 		mReadRom.setOnClickListener(new OnClickListener() {
@@ -109,25 +107,26 @@ public class MainActivity extends AppCompatActivity {
 					// TODO Auto-generated method stub
 				}
 			});
-			
-			
-			
+
+
+
 		detachReceiver = new BroadcastReceiver() {
 			public void onReceive(Context context, Intent intent) {
-				if(intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED))
+				if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED))
 					stopSelf();
 			}
 
 			private void stopSelf() {
 				mDeviceText.append("\n" + "Disconnected");
 				Tv1.setBackgroundResource(R.drawable.ic_offline);
+				mFw.setText("N/A");
 			}
 		};
 
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
 		registerReceiver(detachReceiver, filter);
-	
+
 	}
 	private boolean checkPermissions() {
 		int result;
@@ -150,19 +149,19 @@ public class MainActivity extends AppCompatActivity {
 			if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				// do something
-				
-				
+
+
 			}
 			return;
 		}
 	}
-	
+
 	private void read() {
 		//Read FW Info T-DRIVER.DMP
 		StringBuilder text = new StringBuilder();
 		try {
-			
-			File file = new File(path,"T-DRIVER.DMP");
+
+			File file = new File(path, "T-DRIVER.DMP");
 
 			BufferedReader br = new BufferedReader(new FileReader(file));  
 			String line;   
@@ -171,14 +170,14 @@ public class MainActivity extends AppCompatActivity {
                 text.append('\n');
 			}
 			br.close() ;
-		}catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();           
 		}
 
-		
+
 		mFw.setText(text.toString()); ////Set the text to text view.
-		}
-	
+	}
+
 	@Override
 	protected void onRestart() {
 		super.onRestart();
