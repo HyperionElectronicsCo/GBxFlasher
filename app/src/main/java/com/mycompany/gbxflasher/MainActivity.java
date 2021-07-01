@@ -32,6 +32,7 @@ import java.io.FileReader;
 public class MainActivity extends AppCompatActivity {
 	
 	private static final String TAG = "UsbHost";
+	TextView mFw;
 	TextView Tv1;
 	TextView mDeviceText;
 	UsbManager mUsbManager;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		Tv1 = (TextView) findViewById(R.id.Tv1);
 		mDeviceText = (TextView) findViewById(R.id.text_status);
+		mFw = (TextView) findViewById(R.id.mFw);
 		
 		mConnect = (Button) findViewById(R.id.button_connect);
 		mReadInfo = (Button) findViewById(R.id.read_Info);
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		
-		mDeviceText.setText(text.toString()); ////Set the text to text view.
+		mFw.setText(text.toString()); ////Set the text to text view.
 		}
 	
 	@Override
@@ -248,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
 			mConnect.setEnabled(true);
 			Tv1.setBackgroundResource(R.drawable.ic_online);
 			checkPermissions();
+			read();
 		}
 	}
 }

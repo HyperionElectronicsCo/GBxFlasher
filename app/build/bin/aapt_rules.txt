@@ -101,7 +101,7 @@
 # view AndroidManifest.xml #generated:26
 -keep class com.mycompany.gbxflasher.MainActivity { <init>(...); }
 
-# onClick res/layout/activity_main.xml #generated:112
+# onClick res/layout/activity_main.xml #generated:113
 # onClick res/layout/activity_usbenabled.xml #generated:13
 -keepclassmembers class * { *** onConnectClick(...); }
 
