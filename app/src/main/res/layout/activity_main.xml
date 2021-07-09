@@ -141,7 +141,8 @@
 			android:text="Write ROM"
 			android:layout_toRightOf="@id/read_Rom"
 			android:layout_below="@id/read_Info"
-			android:id="@+id/write_Rom"/>
+			android:id="@+id/write_Rom"
+			android:onClick="writeROM"/>
 
 		<Button
 			android:layout_width="126dp"
@@ -175,6 +176,27 @@
 			android:text="null"
 			android:id="@+id/text_status"
 			android:layout_margin="5dp"/>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="File:"
+			android:id="@+id/activitymainTextView5"
+			android:layout_marginRight="15dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="None selected"
+			android:layout_toRightOf="@id/activitymainTextView5"
+			android:id="@+id/fSelect"/>
 
 	</RelativeLayout>
 
